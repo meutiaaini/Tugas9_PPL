@@ -1,0 +1,40 @@
+{% extends 'produk/base.html' %}
+{% block title %}Daftar Produk{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h4 class="fw-semibold">📦 Daftar Produk</h4>
+  <a href="{% url 'tambah_produk' %}" class="btn btn-success">+ Tambah Produk</a>
+</div>
+
+<div class="card p-3">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle table-bordered" style="min-width: 600px;">
+      <thead class="table-light">
+        <tr>
+          <th>Nama</th>
+          <th>Harga</th>
+          <th>Stok</th>
+          <th style="width: 120px;">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in produk %}
+        <tr>
+          <td>{{ p.nama }}</td>
+          <td>Rp{{ p.harga }}</td>
+          <td>{{ p.stok }}</td>
+          <td>
+            <a href="{% url 'update_produk' p.pk %}" class="btn btn-sm btn-warning">Edit</a>
+            <a href="{% url 'hapus_produk' p.pk %}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus?')">Hapus</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" class="text-center text-muted">Belum ada produk 😴</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
